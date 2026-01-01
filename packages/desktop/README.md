@@ -9,7 +9,7 @@
 
 > Experimental desktop JSCAD (openjscad) client, built using Electron
 
-A LOT OF THE THINGS HERE CAN AND WILL CHANGE!! This softare is pre-alpha, use at your own risk etc !
+A LOT OF THE THINGS HERE CAN AND WILL CHANGE!! This softare is pre-alpha, use at your own risk, etc. !
 
 ## Overview
 
@@ -20,57 +20,57 @@ A LOT OF THE THINGS HERE CAN AND WILL CHANGE!! This softare is pre-alpha, use at
 - uses the shiny new 3D viewer based on regl
 - uses most.js observables & a declarative approach internally
 
-### what is supported:
+### what is supported?
  * almost all of the features of JSCAD web EXCEPT the things in the paragraph below 
 
-### what is not supported
-  - the include() function , [since include is EVIIIL and an antipattern
-(an alternative to include() will soon be provided)](https://github.com/jscad/OpenJSCAD.org/issues/245)
+### what is not supported?
+  - the `include()` function , [since include is EVIIIL and an antipattern
+(an alternative to `include()` will soon be provided)](https://github.com/jscad/OpenJSCAD.org/issues/245)
   - direct loading/conversion of other formats expect for .js/jscad is not supported (yet)
-  - there is no text editor included, because I am still on the fence about including one: why have something half baked when there are so many great , free & open source code editors these days ? ([Atom](https://atom.io/), [Visual Studio Code](https://code.visualstudio.com/))
+  - there is no text editor included, because I am still on the fence about including one: why have something half-baked when there are so many great, free & open source code editors these days ? ([Atom](https://atom.io/), [Visual Studio Code](https://code.visualstudio.com/))
 
 ### script handling
  * you can either select a file (jscad or js) or folder from the load jscad menu or drag & drop a file or folder
   * the lookup in folders is done as follows : 
-    - if there is a package.json file, the file specified in the 'main' field is used (standard node.js)
-    - if there is no package.json the program tried to look for either an index.js/jscad file or a main.js/jscad file
+    - if there is a `package.json` file, the file specified in the `'main'` field is used (standard node.js)
+    - if there is no `package.json` the program tried to look for either an index.js/jscad file or a main.js/jscad file
     - if that fails it tries to look for a js/jscad file that has the same name as the folder
  *  unlike the web based UI you can (and are **encouraged to**) use jscad designs defined as common.js modules, so you can use
- ```require(<moduleName>)``` calls to include other functions, shapes etc
- * in your main file, when using common.js modules please use named exports ie :
+ ```require(<moduleName>)``` calls to include other functions, shapes, etc.
+ * in your main file, when using common.js modules please use named exports, i.e.:
   ```javascript module.exports = {main, getParameterDefinitions}```
- * VERY IMPORTANT : if you use common.js modules you HAVE to `require()` all the JSCAD packages you use (like `@jscad/csg` etc) **yourself**: if the app detects that you do not have `module.exports`, then it will inject all the JSCAD api itself, with a MAJOR limitation at this time:
-  you cannot make require() calls from anything but the root level file, and you do not have access to the API (this will get fixed)
+ * VERY IMPORTANT : if you use common.js modules you HAVE to `require()` all the JSCAD packages you use (like `@jscad/csg` etc.) **yourself**: if the app detects that you do not have `module.exports`, then it will inject all the JSCAD api itself, with a MAJOR limitation at this time:
+  you cannot make `require()` calls from anything but the root level file, and you do not have access to the API (this will get fixed)
 
- > there will NOT be out of the box support for es6 modules anytime soon, please use a transpiler (Babel.js etc) if you want to use es modules
+ > there will NOT be out of the box support for es6 modules anytime soon; please use a transpiler (Babel.js, etc.) if you want to use es modules
 
 ### geometry caching
 
  this is an experimental feature that adds a HUGE performance boost by turning the various geometry creation
- functions (so cube(), sphere(), union(), difference() etc into a virtual tree, and caching each of the items in the tree when evaluating the tree into actual csg/cag object
- you can see more information about it [here](https://github.com/kaosat-dev/jscad-tree-experiments)
+ functions (so `cube()`, `sphere()`, `union()`, `difference()`, etc. into a virtual tree, and caching each of the items in the tree when evaluating the tree into actual csg/cag object
+ you can see [more information about it here](https://github.com/kaosat-dev/jscad-tree-experiments)
 
   >Tip:
-  to take even more advantage of this feature, please have your *main()* script return an array of shapes
-  if there are multiple independant shapes/parts, as union() operations are more costly
+  to take even more advantage of this feature, please have your *`main()`* script return an array of shapes
+  if there are multiple independant shapes/parts, as `union()` operations are more costly
 
-  This desktop app also saves your current design's cache to the hard drive, making a reload after restarting the app very fast! IF you follow the instructions/limitations below
+  This desktop app also saves your current design's cache to the hard drive, making a reload after restarting the app very fast! IF you follow the instructions/limitations below...
   
 #### Limitations
 
 - LIMITATION 1 :
  this **ONLY WORKS WITH THE FUNCTIONAL API** !! ie 
- cube(), sphere(), union(), difference(), translate(), scale() etc
- but **NOT** CSG.cube(), csgObject.union(xxx), csgObject.translate(xxx)
+ `cube()`, `sphere()`, `union()`, `difference()`, `translate()`, `scale()` etc.
+ but **NOT** `CSG.cube()`, `csgObject.union(xxx)`, `csgObject.translate(xxx)`
 
 - LIMITATION 2: because of the limitation above you CANNOT mix the two coding styles: so this is **FUNCTIONAL API ONLY, NO MIXING** !!
- since the non functional api will become deprecated soon, this is future facing decision regardless :)
+ since the non-functional API will become deprecated soon, this is future-facing decision regardless :)
 
 ### How to use it : (temporary instructions)
 
   > Note: this is experimental, and somewhat clunky, will VERY LIKELY change in the future !!!
 
-  1 - with explicit require() calls (prefered method)
+  1 - with explicit `require()` calls (prefered method)
 
   - toggle the 'Experimental geometry caching:' setting in the options panel (turned off by default)
 
@@ -122,7 +122,7 @@ A LOT OF THE THINGS HERE CAN AND WILL CHANGE!! This softare is pre-alpha, use at
     you can find an example design that uses these imports and makes full use of the speedups here:
     https://github.com/kaosat-dev/Isolos
 
-  2 - For old still scripts without explicit require() calls
+  2 - For old still scripts without explicit `require()` calls
 
   just toggle the 'Experimental geometry caching:' setting in the options panel (turned off by default)
   be warned however that a lot of the official examples etc will not work with this out of the box
@@ -135,7 +135,7 @@ This version of Jscad has support for multiple languages (as in text for the UI,
 - French
 - Croatian
 
-you can find the language files in the **locales** folder 
+you can find the language files in the 📁**locales** folder 
 * Language will default to your system's locale
 * feel free to add pull requests if you see issues with the current translations or if you want to 
 add translations for another one !
@@ -152,7 +152,7 @@ pre-alpha, expect bugs!
 
 ## Installation
 
-For now , dev mode only! 
+For now, dev mode only! 
 
 ```
 git clone https://github.com/jscad/OpenJSCAD.org.git
@@ -163,9 +163,9 @@ npm test
 
 ## Usage
 
-For now , dev mode only! 
+For now, dev mode only! 
 
-To start the app, in the root folder , type
+To start the app, in the root folder, type
 ```
 cd packages/desktop
 npm run dev
@@ -174,8 +174,8 @@ npm run dev
 - left/right drag to rotate camera
 - shift + drag to pan 
 - double click to reset camera & controls
-- tripple click to zoomToFit on the items in the scene
-- there are also keyboard shortcuts for camera angles and orthographic/perspective you can take a look at them & change them in the data/keybindings.json file (requires restart)
+- triple click to zoomToFit on the items in the scene
+- there are also keyboard shortcuts for camera angles and orthographic/perspective you can take a look at them & change them in the `data/keybindings.json` file (requires restart)
 
    * `t` : top view
    * `b` : bottom view
@@ -183,7 +183,7 @@ npm run dev
    * `r` : right view
    * `f`: front view
    * `b`: back view
-   (yes 'b' is bound to both bottom & back views, whoops)
+   (yes, `b` is bound to both bottom & back views…whoops)
    * warning ! panning is broken in orthographic mode
    * `p`: perspective projection
    * `o`: orthographic projection
